@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 import dateutil.parser
 from functools import partialmethod
@@ -11,9 +11,9 @@ from requests.exceptions import HTTPError
 class Meeting:
     meeting_id: str
     room_url: str
-    start_date: datetime
-    end_date: datetime
-    host_room_url: str
+    start_date: datetime = field(repr=False)
+    end_date: datetime = field(repr=False)
+    host_room_url: str = field(repr=False)
 
 
 class WherebyClient:
@@ -26,12 +26,12 @@ class WherebyClient:
     # HTTP requests
     def _create_session(self):
         session = requests.Session()
-        session.headers.update({'Authorization': f'Bearer {self.api_key}'.})
+        session.headers.update({'Authorization': f'Bearer {self.api_key}'})
         return session
 
     def _make_request(self, method, path, *args, **kwargs):
         resp = getattr(self.session, method)(
-            '{self.api_base_url}{path}', *args, **kwargs
+            f'{self.api_base_url}{path}', *args, **kwargs
         )
         resp.raise_for_status()
         return resp
@@ -84,7 +84,6 @@ class WherebyClient:
     # https://whereby.dev/http-api/#/paths/~1meetings~1{meetingId}/delete
     def delete_meeting(self, meeting_id):
         r = self._delete(f'/meetings/{meeting_id}')
-        return r.ok
 
     # Get meeting
     # https://whereby.dev/http-api/#/paths/~1meetings~1{meetingId}/get

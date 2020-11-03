@@ -29,7 +29,7 @@ whereby = WherebyClient(api_key='<your api key>')
   - **`is_locked`** – The initial lock state of the room (_boolean_)
   - **`room_name_prefix`** – The prefix for the room name. (_string_)
   - **`room_mode`** – The mode of the created room. (_string – `normal` or `group`_)
-  - **`fields`** – Additional fields that should be populated. (_list of strings, currently the only option is `hostRoomUrl`_)
+  - **`fields`** – Additional fields that should be populated. (_list of strings, currently the only option is `'hostRoomUrl'`_)
 
   Please refer to the [official documentation](https://whereby.dev/http-api/#/paths/~1meetings/post) for details.
 
@@ -39,9 +39,10 @@ whereby = WherebyClient(api_key='<your api key>')
   #### Usage
   ```python
   from datetime import datetime, timedelta
-  whereby.create_meeting(
+  meeting = whereby.create_meeting(
     start_date=datetime.now(),
     end_date=datetime.now() + timedelta(days=2),
+    fields=['hostRoomUrl'],
   )
   ```
 
