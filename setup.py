@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="whereby-api",
-    version="0.1.2",
+    version="0.1.3",
     author="Philipp Bosch",
     author_email="hello@pb.io",
     description="Client for the Whereby API",

@@ -4,7 +4,6 @@ import dateutil.parser
 from functools import partialmethod
 
 import requests
-from requests.exceptions import HTTPError
 
 
 @dataclass(frozen=True)
@@ -90,3 +89,9 @@ class WherebyClient:
     def get_meeting(self, meeting_id):
         r = self._get(f'/meetings/{meeting_id}')
         return self._build_meeting_from_api_response(r.json())
+
+    # Get room insights
+    # https://whereby.dev/http-api/#/paths/~1insights~1rooms/get
+    def get_room_insights(self, params={}):
+        r = self._get('/insights/rooms', params=params)
+        return r.json()
